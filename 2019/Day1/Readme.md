@@ -1,0 +1,1 @@
+So this was a really simple one that I wanted to knock out.  I didn't have python installed on the computer that I was on at the time, so I did it with a couple of real quick formulas on Excel.  You can read my howto at https://www.signal-chief.com/2019/12/advent-of-code-day-1/
