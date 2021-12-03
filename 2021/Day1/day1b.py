@@ -1,7 +1,7 @@
 depths = []
 
 
-with open(".\Day1\input.txt", "r") as f:
+with open(".\\2021\Day1\input.txt", "r") as f:
     for line in f:
         depths.append(int(line))
 
