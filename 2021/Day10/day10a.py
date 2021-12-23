@@ -26,12 +26,18 @@ def check_line(line):
             return close_points[j]
     return 0
 
+incomplete_lines = []
 
 with open(os.path.join(os.path.dirname(__file__), 'input.txt'), "r") as f:
     for line in f:
         line = line.strip()
         tmp = []
         tmp[:0] = line
-        points += check_line(tmp)
+        additional_points = check_line(tmp)
+        if additional_points > 0:
+            points += additional_points
+        else:
+            incomplete_lines.append(tmp)
+
 
 print(points)
