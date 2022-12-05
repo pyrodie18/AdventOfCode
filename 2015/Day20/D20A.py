@@ -1,13 +1,19 @@
-House = 332376
-DesiredPresents = 34000000 / 10
+import numpy as np
 
-while True:
-    TotalPresents = 0
-    for Elf in range (1, House + 1):
-        if House %  Elf == 0:
-            TotalPresents += Elf
-    print(str(House) + "  -  " + str(TotalPresents))
-    if TotalPresents >= DesiredPresents:
-        print("Found - " + str(House))
-        break
-    House += 1
+DesiredPresents = 34000000
+max_limit = DesiredPresents // 10
+# houses = np.zeros(max_limit + 1)
+
+for i in range(1, max_limit + 1):
+    houses[i:max_limit:i] += 10 * i
+tmp = np.where(houses >= DesiredPresents)
+print(tmp[0][0])
+
+
+# Part 2
+houses = np.zeros(max_limit + 1)
+
+for i in range(1, max_limit + 1):
+    houses[i : i * 50 : i] += 11 * i
+tmp = np.where(houses >= DesiredPresents)
+print(tmp[0][0])
