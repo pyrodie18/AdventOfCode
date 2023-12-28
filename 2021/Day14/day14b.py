@@ -2,15 +2,17 @@ import cProfile
 from functools import total_ordering
 import os
 from collections import defaultdict
+import numpy as np
+import re
 
 profiler = cProfile.Profile()
 profiler.enable()
 with open(os.path.join(os.path.dirname(__file__), "input.txt"), "r") as f:
     inputs = f.readlines()
 
-tmp = inputs[0].strip()
-start = []
-start[:0] = tmp
+start = inputs[0].strip()
+# start = []
+# start[:0] = tmp
 
 pair_rules = {}
 for line in inputs[2:]:
@@ -18,17 +20,14 @@ for line in inputs[2:]:
     line = line.split(" ")
     pair_rules[line[0]] = line[2]
 
-for a in range(20):
-    new_poly = []
-    for i in range(len(start) - 1):
-        current_pair = start[i : i + 2]
-        new_poly.append(current_pair[0])
-        try:
-            new_poly.append(pair_rules["{}{}".format(current_pair[0], current_pair[1])])
-        except:
-            continue
-    new_poly.append(current_pair[1])
-    start = new_poly
+for a in range(40):
+    new_poly = np.chararray(len(start), itemsize=2)
+    for key in pair_rules.keys():
+        new_val = key[0] + pair_rules[key]
+        for match in re.finditer("(?=(" + key + "))", start):
+            new_poly[match.start()] = new_val
+    new_poly[-1] = start[-1]
+    start = new_poly.tostring().decode().rstrip("\x00")
 
 totals = defaultdict(int)
 count = {}
