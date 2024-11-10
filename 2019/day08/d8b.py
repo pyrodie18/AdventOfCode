@@ -1,4 +1,6 @@
-input = open("layers.txt", "r")
+from os import path
+
+input = open(path.join(path.dirname(__file__), 'input.txt'), 'r')
 password = input.read()
 
 layers = []

@@ -1,3 +1,5 @@
+from os import path
+
 # Variables
 TestID = 1
 CurrentPointer = 0 #Current instruction pointer
@@ -29,7 +31,7 @@ def get_parameter(Instruction, Code, ParamNum, CurrentPointer):
         Value = Code[CurrentPointer + ParamNum]
     return Value
 
-input = open("Day5Intcode.txt", "r")
+input = open(path.join(path.dirname(__file__), 'input.txt'), 'r')
 OriginalCode = input.read()
 OriginalCode = OriginalCode.split(",")
 

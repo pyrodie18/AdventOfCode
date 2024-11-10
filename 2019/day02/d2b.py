@@ -1,4 +1,6 @@
-input = open("intcode.txt", "r")
+from os import path
+
+input = open(path.join(path.dirname(__file__), 'input.txt'), 'r')
 originalcode = input.read()
 originalcode = originalcode.split(",")
  

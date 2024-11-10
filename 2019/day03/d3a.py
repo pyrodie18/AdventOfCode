@@ -1,3 +1,5 @@
+from os import path
+
 rows, cols = (11000, 10000)
 startrow = 3100
 startcolumn = 2700
@@ -19,7 +21,7 @@ arr =  [[0 for i in range(cols)] for j in range(rows)]
 #Set Start
 arr[startrow][startcolumn] = 99
 
-input = open("directions.txt", "r")
+input = open(path.join(path.dirname(__file__), 'input.txt'), 'r')
 wire = input.readline()
 while wire:
 #	print(wire)
