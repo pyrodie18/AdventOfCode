@@ -1,7 +1,9 @@
+from os import path
+
 depths = []
 
 
-with open(".\\2021\Day1\input.txt", "r") as f:
+with open(path.join(path.dirname(__file__), 'input.txt'), 'r') as f:
     for line in f:
         depths.append(int(line))
 
