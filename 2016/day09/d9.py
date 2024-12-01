@@ -27,28 +27,55 @@ def extract_marker(marker):
     }
 
 
+# def part1(input):
+#     answer = ""
+#     i = 0
+#     while i < len(input):
+#         if input[i] == "(":
+#             marker = extract_marker(input[i:i + 10])
+#             compressed = input[i + marker["marker_size"]
+#                 :i + marker["marker_size"] + marker["length"]]
+#             for j in range(0, marker["repeat"]):
+#                 answer += compressed
+#             i = i + marker["marker_size"] + marker["length"]
+#         else:
+#             answer += input[i]
+#             i += 1
+#     # print(answer)
+#     print("Part 1:  {}".format(str(len(answer))))
 def part1(input):
-    answer = ""
+    answer = 0
     i = 0
     while i < len(input):
         if input[i] == "(":
             marker = extract_marker(input[i:i + 10])
-            compressed = input[i + marker["marker_size"]
-                :i + marker["marker_size"] + marker["length"]]
-            for j in range(0, marker["repeat"]):
-                answer += compressed
-            i = i + marker["marker_size"] + marker["length"]
+            answer += (marker["repeat"] * marker["length"])
+            i += (marker["marker_size"] + marker["length"])
         else:
-            answer += input[i]
+            answer += 1
             i += 1
-    # print(answer)
-    print("Part 1:  {}".format(str(len(answer))))
 
-
+    print("Part 1:  {}".format(str(answer)))
+    
 def part2(input):
-    pass
-
+    answer = 0
+    i = 0
+    while i < len(input):
+        if input[i] == "(":
+            marker = extract_marker(input[i:i + 10])
+            sub_start = i + marker["marker_size"]
+            sub_end = sub_start + marker["length"]
+            substring = input[sub_start:sub_end]
+            sub_length = part2(substring)
+            sub_length = sub_length * marker["repeat"]
+            answer += sub_length
+            i = sub_end
+        else:
+            answer += 1
+            i += 1
+    
+    return answer
 
 input = get_input()
 part1(input[0])
-part2(input[0])
+print("Part 2:  {}".format(str(part2(input[0]))))

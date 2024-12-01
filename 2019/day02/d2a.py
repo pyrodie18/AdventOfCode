@@ -7,7 +7,7 @@ code = code.split(",")
 for i in range(len(code)):
     code[i] = int(code[i])
  
-print(code)
+# print(code)
  
 for i in range(0, len(code)-1, 4):
     opcode = code[i]
