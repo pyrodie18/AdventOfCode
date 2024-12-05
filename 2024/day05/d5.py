@@ -73,5 +73,5 @@ def part2(rules, updates):
     print('Part 2:  {}'.format(str(total)))
 
 rules, updates = get_data()
-# part1(rules, updates)
+part1(rules, updates)
 part2(rules, updates)
