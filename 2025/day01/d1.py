@@ -8,7 +8,25 @@ def get_data():
             data.append(line.strip())
     return data
 
-def turn (pos, instruction):
+def figure_mod(pos, move, direction):
+    zeros = 0
+    current_pos = pos
+    if direction == "L":
+        for i in range(move):
+            current_pos -= 1
+            if current_pos == 0:
+                zeros += 1
+            elif current_pos < 0:
+                current_pos = 99
+    else:
+        for i in range(move):
+            current_pos += 1
+            if current_pos == 100:
+                zeros += 1
+                current_pos = 0
+    return zeros
+
+def turn (pos, instruction, mod=False):
     direction = instruction[0]
     spaces = int(instruction[1:])
     
@@ -19,7 +37,11 @@ def turn (pos, instruction):
     else:
         new_pos = pos + spaces
         new_pos =  new_pos % 100
-    return new_pos
+        
+    if mod:
+        return new_pos, figure_mod(pos, spaces, direction)
+    else:
+        return new_pos
 
 def part1(data):
     answer = 0
@@ -33,9 +55,15 @@ def part1(data):
     print('Part 1:  {}'.format(str(answer)))
 
 def part2(data):
-    answer = None
-    # print('Part 2:  {}'.format(str(answer)))
+    answer = 0
+    pos = 50
+    
+    for instruction in data:
+        pos, zeros = turn(pos, instruction, True)
+        answer += zeros
+    
+    print('Part 2:  {}'.format(str(answer)))
 
 data = get_data()
-part1(data)
-# part2(data)
+# part1(data)
+part2(data)
