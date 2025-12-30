@@ -1,3 +1,5 @@
+from typing import Tuple
+
 def get_data():
     from os import path
 
@@ -12,34 +14,39 @@ def get_data():
                 data.append((int(i[0]), int(i[1])))
     return data
 
-def find_valid(ids):
-    total = 0
-    for i in range (ids[0], ids[1] + 1):
-        i = str(i)
-        size = len(i)
-        if size % 2 != 0:
-            continue
-        if i[0:int(size / 2)] == i[int(size / 2):]:
-            total += int(i)
-    return total
+def find_valid(ids: Tuple[int, int], multiple: bool = False) -> int:
+    """
+    Determine how many numbers within a range exhibit symetry
 
-def find_valid2(ids):
+    Args:
+        ids (Tuple[int, int]): A range of two numbers
+        multiple (bool, optional): Search for multiple repitions. Defaults to False.
+
+    Returns:
+        int: The number of symetrical numbers found.
+    """
     total = 0
     for i in range (ids[0], ids[1] + 1):
         i = str(i)
         size = len(i)
-        for j in range (int(size/2),0, -1):
-            found = True
-            if size % j != 0:
+        if not multiple:
+            if size % 2 != 0:
                 continue
-            pattern = i[:j]
-            for k in range(j, size, j):
-                if pattern != i[k:k+j]:
-                    found = False
-                    break
-            if found:
+            if i[0:int(size / 2)] == i[int(size / 2):]:
                 total += int(i)
-                break
+        else:
+            for j in range (int(size/2),0, -1):
+                found = True
+                if size % j != 0:
+                    continue
+                pattern = i[:j]
+                for k in range(j, size, j):
+                    if pattern != i[k:k+j]:
+                        found = False
+                        break
+                if found:
+                    total += int(i)
+                    break
     return total
 
 def part1(data):
@@ -51,7 +58,7 @@ def part1(data):
 def part2(data):
     answer = 0
     for ids in data:
-        answer += find_valid2(ids)
+        answer += find_valid(ids, True)
     print('Part 2:  {}'.format(str(answer)))
 
 data = get_data()
